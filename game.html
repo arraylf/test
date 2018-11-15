@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"> 
+<title>Bulls and Cows</title> 
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css">
+ <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function(){
+var ans=createAnswer();
+var count=0;
+$("#bt1").click(function(){
+alert("谜底为4位0-9的不重复数字，玩家输入4位不重复数字，"+
+"出数者就要根据这个数字给出几A几B，其中A前面的数字表示位置正确的数的个数，"+
+"而B前的数字表示数字正确而位置不对的数的个数,当结果为4A0B时玩家获胜");
+});
+$("#bt2").click(function(){
+alert(ans);
+});
+$("#bt3").click(function(){
+location.reload();
+});
+$("#sub").click(function(){
+count++;
+ var i=$("#num").val();
+ if (i.length==4 && checkNumber(i) && isRepeat(i)){
+ flag =getAnswer(i);
+ var str=flag[0]+"A"+flag[1]+"B";
+ $("#ans").text(str);
+ $("ul").append('<li class="list-group-item list-group-item-primary">'
+ +count+'. 输入：'+i+' '+"输出："+flag[0]+"A"+flag[1]+"B"+"</li>");
+ $("#input2").val(str);
+ $("#num").val("");
+ $("#num").focus();
+ }
+ else
+ {
+ alert("error");
+ }
+});
+
+//判断是否为数字
+function checkNumber(num){
+var reg=/^[0-9]+.?[0-9]*$/;
+if (reg.test(num)){
+return true;
+}
+return false;
+}
+//判断是否重复
+function isRepeat(num){
+var arr=num.split('');
+arr.sort(function(a, b){return (a + '').localeCompare(b + '')});
+for (var i=0;i<3;i++){
+if(arr[i]==arr[i+1]){
+return false;
+}
+}
+return true;
+}
+
+//给出回应
+function getAnswer(num){
+var l=num.split("");
+var A=0;
+var B=0;
+for(var i=0;i<4;i++){
+if (inarray(l[i],ans)&&l[i]!=ans[i]){B+=1;}
+if (l[i]==ans[i]){A+=1;}
+}
+return [A,B];
+}
+//生成谜底
+function createAnswer(){
+var a=[0,1,2,3,4,5,6,7,8,9];
+var b=[];
+for (var i=0;i<4;i++){
+var index=parseInt(Math.random()*(10-i));
+b.push(a[index]);
+a.splice(index,1);
+}
+return b;
+}
+//判断是否在数组
+function inarray(a,b){
+for (var i in b){
+if (b[i]==a){
+return true;
+}
+}
+return false;
+}
+});
+</script>
+
+</head>
+<body>
+<div class="container">
+<div class="row">
+<h1 class="col-4"">猜数字游戏</h1>
+<button class="btn col-2 btn-success" id="bt1">规则</button>
+<button class="btn col-2 offset-1 btn-success" id="bt2">谜底</button>
+<button class="btn col-2 offset-1 btn-success" id="bt3">重新开始</button>
+</div>
+<div style="height:50px" ></div>
+<form>
+<div class="input-group">
+<label class="navbar-text">输入数字：</label>
+<input type="text" class="form-control" id="num" maxlength="4">
+<div class="input-group-append">
+<button id="sub" type="button" class="btn btn-primary">提交</button> 
+</div>
+</div>
+<div style="height:10px" ></div>
+<div class="input-group">
+<label class="navbar-text">输出结果：</label>
+<input type="text" class="form-control" id="input2">
+</div>
+</form>
+<div style="height:50px" ></div>
+<ul id="ul" class="list-group">
+<h2 id="h2">记录:</h2>
+</ul>
+</div>
+</body>
+</html>

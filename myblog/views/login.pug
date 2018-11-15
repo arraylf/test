@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 用户登录
+  form
+    .form-group
+      laber(for='name') 用户名:
+      input.form-control(type='name',id='name')
+      laber(for='pwd') 密码：
+      input.form-control(type='password',id='pwd')
+    button.btn.btn-primary(type='submit') 登录

@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title myblog
+    meta(charset='UTF-8')
+    link(rel='stylesheet', href='https://cdn.staticfile.org/twitter-bootstrap/4.1.0/css/bootstrap.min.css')
+    script(src='https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js')
+    script(src="https://cdn.staticfile.org/popper.js/1.12.5/umd/popper.min.js")
+    script(src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js")
+  body
+    .navbar.navbar-expand.bg-dark
+      a.brand(href='/') myblog
+      ul.navbar-nav
+        li.nav-item
+          a.nav-link(href='/') 首页
+        li.nav-item
+          a.nav-link(href='/login') 登录
+        li.nav-item
+          a.nav-link(href='/reg') 注册
+    .container
+      block content
+    
+    footer.text-center
+      p
+        a(href='#') xiaoliu
+        span  2018
