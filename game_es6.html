@@ -13,25 +13,28 @@ $(document).ready(function(){
 let ans=createAnswer();
 let count=0;
 $("#bt1").click(function(){
-alert("谜底为4位0-9的不重复数字，玩家输入4位不重复数字，"+
-"出数者就要根据这个数字给出几A几B，其中A前面的数字表示位置正确的数的个数，"+
-"而B前的数字表示数字正确而位置不对的数的个数,当结果为4A0B时玩家获胜");
+alert(`谜底为4位0-9的不重复数字，
+玩家输入4位不重复数字,
+出数者就要根据这个数字给出几A几B，
+其中A前面的数字表示位置正确的数的个数,
+而B前的数字表示数字正确而位置不对的数的个数,
+当结果为4A0B时玩家获胜。`);
 });
 $("#bt2").click(function(){
 alert(ans);
 });
 $("#bt3").click(function(){
 location.reload();
+alert('游戏已重新开始.');
 });
 $("#sub").click(function(){
-count++;
  let i=$("#num").val();
- if (i.length==4 && checkNumber(i) && isRepeat(i)){
- flag =getAnswer(i);
- let str=flag[0]+"A"+flag[1]+"B";
+ if (checkNumber(i) && isRepeat(i)){
+ count++;
+ let obj =getAnswer(i);
+ let str=obj.A+"A"+obj.B+"B";
  $("#ans").text(str);
- $("ul").append('<li class="list-group-item list-group-item-primary">'
- +count+'. 输入：'+i+' '+"输出："+flag[0]+"A"+flag[1]+"B"+"</li>");
+ $("ul").append(`<li class="list-group-item list-group-item-primary">${count}. 输入:${i} 输出：${str}</li>`);
  $("#input2").val(str);
  $("#num").val("");
  $("#num").focus();
@@ -44,39 +47,33 @@ count++;
 
 //判断是否为数字
 function checkNumber(num){
-let reg=/^[0-9]+.?[0-9]*$/;
+let reg=/[0-9]{4}/;
 if (reg.test(num)){
 return true;
 }
 return false;
 }
+
 //判断是否重复
 function isRepeat(num){
-//let arr=num.split('');
-let arr=[...num];
-arr.sort(function(a, b){return (a + '').localeCompare(b + '')});
-for (let i=0;i<3;i++){
-if(arr[i]==arr[i+1]){
+let arr=[...new Set(num)];
+if (arr.length==4)
+{
+    return true;
+}
 return false;
-}
-}
-return true;
 }
 
 //给出回应
 function getAnswer(num){
-//let l=num.split("");
-let l=[...num];
-let A=0;
-let B=0;
+let [l,A,B]=[[...num],0,0];
 for(let i=0;i<4;i++){
-//if (inarray(l[i],ans)&&l[i]!=ans[i])
 if (ans.includes(Number(l[i])) && l[i]!=ans[i])
 {B+=1;}
 if (l[i]==ans[i])
 {A+=1;}
 }
-return [A,B];
+return {A,B};
 }
 //生成谜底
 function createAnswer(){
@@ -90,7 +87,6 @@ a.splice(index,1);
 }
 return b;
 }
-
 });
 </script>
 
