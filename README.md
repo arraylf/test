@@ -2,14 +2,10 @@
 
 github使用测试
 
-game.html是我编写的猜数字小游戏
+web页面是我分别用js、es6、vue.js实现猜数字游戏。
 
-game_es6是我使用es6特性重写的页面
+webpack文件夹内是我用webpack打包猜数字游戏的js代码的尝试。
 
-game_vue是我学习vue2.0的过程中重写的游戏界面
+node.js项目是我用node.js实现个人微博的尝试，完成了首页、登录、注册的页面，实现路由跳转。
 
-game_webpack_use是我学习使用webpack用的界面
-
-myblog是我用node.js编写的3个界面和相应的执行文件，可在本地运行。
-
-
+python文件夹内有我以前用python的tk库实现数独生成游戏。
